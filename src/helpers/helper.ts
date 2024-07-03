@@ -2,12 +2,9 @@ import User from "@/models/userModel";
 import { compareSync, hashSync } from "bcryptjs";
 import CryptoJS from "crypto-js";
 
-
 export const createDefaultAdmin = async () => {
-    console.log("object")
     try {
         const adminExists = await User.findOne({ role: "admin" });
-        console.log('adminExists: ', adminExists);
         if (!adminExists) {
             const defaultAdmin = new User({
                 name: "Default Admin",
@@ -18,7 +15,6 @@ export const createDefaultAdmin = async () => {
                 role: "admin",
             });
             await defaultAdmin.save();
-            console.log("Default admin created successfully!");
         } else {
             console.log("Default admin already exists.");
             return
@@ -61,10 +57,10 @@ export const randomiv = async () => {
 
 export const randomToken = async () => {
     const str = Array.from({ length: 48 }, () =>
-      "0123456789aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ".charAt(
-        Math.floor(Math.random() * 62)
-      )
+        "0123456789aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ".charAt(
+            Math.floor(Math.random() * 62)
+        )
     ).join("");
-  
+
     return str;
-  };
+};
