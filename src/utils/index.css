@@ -22,11 +22,45 @@ a {
     text-decoration: none;
 }
 
+button{
+    outline: none;
+    border-radius: 5px;
+    font-size: 17px;
+    padding: 7px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+input,
+textarea {
+    border: 1px solid rgb(63, 63, 63);
+    outline: none;
+    border-radius: 5px;
+    font-size: 17px;
+    padding: 7px 10px;
+}
+
 .uni-btns {
     padding: 8px 15px;
     background-color: var(--orange);
     color: white;
     border-radius: 5px;
+}
+
+.t-center {
+    text-align: center;
+}
+
+.inp-box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.accept-div{
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
 }
 
 .main-header {
@@ -59,6 +93,29 @@ a {
     gap: 20px;
 }
 
-.home-page{
+.home-page {
     height: 300vh;
+}
+
+.cred-page {
+    padding: 50px;
+}
+
+.cred-page .cred-form {
+    max-width: 500px;
+    margin: auto;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 30px;
+}
+
+.cred-form .form-title {
+    margin-bottom: 20px;
+    color: var(--orange);
+    font-weight: 500;
+}
+
+.cred-form .form-body{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
