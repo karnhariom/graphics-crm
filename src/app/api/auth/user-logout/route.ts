@@ -3,17 +3,17 @@ import { NextRequest, NextResponse } from "next/server";
 
 connectDb()
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest, response: NextResponse) {
     try {
-        return NextResponse.json({
-            message: "asd",
-            status: 500
-        });
-
+        NextResponse.json({
+            message: "User Logged Out",
+            status: 200
+        })
     } catch (error: any) {
         return NextResponse.json({
             message: error.message,
             status: 500
-        });
+        })
     }
+
 }

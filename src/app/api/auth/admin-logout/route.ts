@@ -1,23 +1,21 @@
-import { NextRequest, NextResponse } from "next/server";
 import { connectDb } from "@/config/dbConfig";
-import User from "@/models/userModel";
 import { checkAuthAdmin } from "@/middlewares/checkAuthAdmin";
+import { NextRequest, NextResponse } from "next/server";
 
-connectDb();
+connectDb()
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest, res: NextResponse) {
     const authResponse: any = await checkAuthAdmin(req, res);
 
     if (authResponse.status !== 200) {
         return authResponse;
     }
-    try {
-        const userList = await User.find({ isDeleted: false });
-        return NextResponse.json({
-            success: true,
-            contacts: userList
-        });
 
+    try {
+        return NextResponse.json({
+            message: "User Logged Out",
+            status: 200
+        });
     } catch (error: any) {
         return NextResponse.json({
             message: error.message,

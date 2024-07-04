@@ -1,4 +1,5 @@
 "use client"
+import axios from 'axios'
 import { useFormik } from 'formik'
 import * as Yup from "yup"
 
@@ -15,7 +16,19 @@ export default function ClientLoginForm() {
         initialValues,
         validationSchema,
         onSubmit: async (values) => {
-            console.log("values: ", values)
+            await axios("/api/user/login-user",
+                {
+                    method: "POST",
+                    data: {
+                        email: values.email,
+                        password: values.password
+                    }
+                }
+            ).then((data)=>{
+                console.log("login<response",data)
+            }).catch((err)=>{
+              console.log(err)
+            })
         }
     })
     return (
