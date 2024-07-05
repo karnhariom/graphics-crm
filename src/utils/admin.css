@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --orange: #EE6D33;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--orange);
+    border-radius: 10px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    outline: none;
+    border-radius: 5px;
+    font-size: 17px;
+    padding: 7px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+input,
+textarea {
+    border: 1px solid rgb(63, 63, 63);
+    outline: none;
+    border-radius: 5px;
+    font-size: 17px;
+    padding: 7px 10px;
+}
+
+.uni-btns {
+    padding: 8px 15px;
+    background-color: var(--orange);
+    color: white;
+    border-radius: 5px;
+}
+
+.t-center {
+    text-align: center;
+}
+
+.inp-box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.admin-layout {
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    width: 100%;
+    height: 100vh;
+}
+
+.admin-layout .admin-sidebar{
+    background-color: #EE6D33;
+}
+
+.admin-layout .admin-content{
+    background-color: aquamarine;
+}
+
+.admin-content .admin-topbar{
+    width: 100%;
+    height: 60px;
+    background-color: red;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
