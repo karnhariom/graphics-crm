@@ -1,6 +1,9 @@
 import User from "@/models/userModel";
 import { compareSync, hashSync } from "bcryptjs";
 import CryptoJS from "crypto-js";
+import { writeFile } from "fs/promises";
+import { NextResponse } from "next/server";
+import path from "path";
 
 export const createDefaultAdmin = async () => {
     try {
@@ -16,11 +19,11 @@ export const createDefaultAdmin = async () => {
             });
             await defaultAdmin.save();
         } else {
-            console.log("Default admin already exists.");
+            
             return
         }
     } catch (error) {
-        console.error("Error creating default admin:", error);
+        
     }
 };
 
@@ -64,3 +67,19 @@ export const randomToken = async () => {
 
     return str;
 };
+
+export const handleFileUpload: any = async (file: any, host: string) => {
+    const buffer = Buffer.from(await file!.arrayBuffer());
+    const filename = `${Date.now()}_${file.name.replaceAll(" ", "_")}`;
+    try {
+        await writeFile(
+            path.join(process.cwd(), "public/uploads/" + filename),
+            buffer
+        );
+        return `http://${host}/uploads/${filename}`;
+        // return NextResponse.json({ Message: "Success", status: 201 });
+    } catch (error) {
+
+        return NextResponse.json({ Message: "Failed", status: 500 });
+    }
+}

@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Password required"],
+        select: false
     },
     is_verified: {
         type: Boolean,
@@ -43,8 +44,8 @@ const userSchema = new mongoose.Schema({
         default: "user",
         required: true,
     },
-}, { timestamps: true }
-)
+},
+    { timestamps: true })
 
 const User = mongoose.models.users || mongoose.model("users", userSchema)
 

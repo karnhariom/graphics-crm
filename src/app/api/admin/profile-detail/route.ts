@@ -1,5 +1,5 @@
 import { connectDb } from "@/config/dbConfig";
-import { checkAuthUser } from "@/middlewares/checkAuthUser";
+import { checkAuthAdmin } from "@/middlewares/checkAuthAdmin";
 import User from "@/models/userModel";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
@@ -7,21 +7,21 @@ import { NextRequest, NextResponse } from "next/server";
 connectDb()
 
 export async function GET(req: NextRequest, res: NextResponse) {
-    const userResponse: any = await checkAuthUser(req, res);
+    const adminResponse: any = await checkAuthAdmin(req, res);
 
-    if (userResponse.status !== 200) {
-        return userResponse;
+    if (adminResponse.status !== 200) {
+        return adminResponse;
     }
     try {
-        const user = await User.findOne({
+        const admin = await User.findOne({
             _id: new mongoose.Types.ObjectId(req.id),
-            role: "user",
+            role: "admin",
             isDeleted: false,
         })
         return NextResponse.json({
             message: "User successfully retrieved",
             status: 200,
-            user
+            admin
         });
 
     } catch (error: any) {

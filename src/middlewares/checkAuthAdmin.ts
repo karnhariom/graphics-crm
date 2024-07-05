@@ -63,8 +63,6 @@ export const checkAuthAdmin = async (req: NextRequest, res: NextResponse) => {
 
                         (req as any).token = bearerToken;
                         (req as any).id = user._id;
-                        (req as any).status = user.status;
-                        (req as any).department = user.departmentId;
                         (req as any).role = user.role;
 
                         return resolve(NextResponse.next());
@@ -76,7 +74,8 @@ export const checkAuthAdmin = async (req: NextRequest, res: NextResponse) => {
                             message: userError.message,
                         }, { status: 500 }));
                     }
-                });
+                }
+            );
         });
 
     } catch (err: any) {

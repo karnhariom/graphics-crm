@@ -47,7 +47,6 @@ export const checkAuthUser = async (req: NextRequest, res: NextResponse) => {
                     const user = await User.findOne({
                         _id: new mongoose.Types.ObjectId(jwt_payload.id),
                         role: "user",
-                        status: true,
                         isDeleted: false,
                     });
 
@@ -55,14 +54,12 @@ export const checkAuthUser = async (req: NextRequest, res: NextResponse) => {
                         return resolve(NextResponse.json({
                             status: false,
                             userStatus: false,
-                            message: 'Access Token is invalid!',
+                            message: 'User not found!',
                         }, { status: 401 }));
                     }
 
                     (req as any).token = bearerToken;
                     (req as any).id = user._id;
-                    (req as any).status = user.status;
-                    (req as any).department = user.departmentId;
                     (req as any).role = user.role;
 
                     return resolve(NextResponse.next());
