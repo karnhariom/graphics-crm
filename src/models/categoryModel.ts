@@ -3,25 +3,44 @@ import mongoose from "mongoose";
 const categorySchema = new mongoose.Schema({
     title: {
         type: String,
-        require: [true, "Category title is required"]
+        required: [true, "Category title is required"]
     },
     categorySlug: {
         type: String,
-        require: [true, "Slug is required"],
-        unique: [true, "Already category exists"]
+        required: [true, "Slug is required"],
+        unique: [true, "Category already exists"]
     },
     categoryImage: {
         type: String,
-        require: [true, "Category image is required"]
+        required: [true, "Category image is required"]
     },
-    isDeleted: { type: Boolean, required: true, default: false },
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    deletedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    parentCategory: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Category",
+        default: null 
+    },
+    isDeleted: { 
+        type: Boolean, 
+        required: true, 
+        default: false 
+    },
+    createdBy: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "User" 
+    },
+    updatedBy: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "User" 
+    },
+    deletedBy: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "User" 
+    },
 },
-    { timestamps: true }
-)
+{ 
+    timestamps: true 
+});
 
-const Category = mongoose.models.categories || mongoose.model("categories", categorySchema)
+const Category = mongoose.models.Category || mongoose.model("Category", categorySchema);
 
-export default Category
+export default Category;

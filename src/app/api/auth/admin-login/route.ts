@@ -24,8 +24,8 @@ export async function POST(request: NextRequest) {
                 status: 400
             });
         }
-
         const validPassword = await checkPassword(password, user.password);
+        
         if (!validPassword) {
             return NextResponse.json({
                 message: "Invalid credentials",
