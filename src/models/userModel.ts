@@ -31,6 +31,8 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    passwordVerifyToken: { type: String },
+    passwordVerifyTokenExpiry: { type: Date },
     isDeleted: { type: Boolean, required: true, default: false },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },

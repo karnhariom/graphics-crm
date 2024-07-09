@@ -4,8 +4,9 @@ import CryptoJS from 'crypto-js';
 import mongoose from 'mongoose';
 import Token from '@/models/token';
 import User from '@/models/userModel';
+import { CustomNextRequest } from '@/types/types';
 
-export const checkAuthUser = async (req: NextRequest, res: NextResponse) => {
+export const checkAuthUser = async (req: CustomNextRequest, res: NextResponse) => {
     try {
         if (!req.headers.get('authorization')) {
             return NextResponse.json({

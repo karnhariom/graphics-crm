@@ -4,7 +4,6 @@ import { checkAuthAdmin } from "@/middlewares/checkAuthAdmin";
 import Category from "@/models/categoryModel";
 import { NextRequest, NextResponse } from "next/server";
 
-
 connectDb()
 
 export const config = {

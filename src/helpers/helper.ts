@@ -78,7 +78,6 @@ export const handleFileUpload: any = async (file: any, host: string) => {
             buffer
         );
         return `http://${host}/uploads/${filename}`;
-        // return NextResponse.json({ Message: "Success", status: 201 });
     } catch (error) {
 
         return NextResponse.json({ Message: "Failed", status: 500 });

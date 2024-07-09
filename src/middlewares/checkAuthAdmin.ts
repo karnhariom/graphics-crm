@@ -4,10 +4,12 @@ import CryptoJS from 'crypto-js';
 import mongoose from 'mongoose';
 import Token from '@/models/token';
 import User from '@/models/userModel';
+import { CustomNextRequest } from '@/types/types';
 
-export const checkAuthAdmin = async (req: NextRequest, res: NextResponse) => {
+export const checkAuthAdmin = async (req: CustomNextRequest, res: NextResponse) => {
     try {
-        if (!req.headers.get('authorization')) {
+        const authKey = req.headers.get('authorization');
+        if (!authKey) {
             return NextResponse.json({
                 status: false,
                 userStatus: false,
@@ -15,7 +17,7 @@ export const checkAuthAdmin = async (req: NextRequest, res: NextResponse) => {
             }, { status: 401 });
         }
 
-        const bearer = req.headers.get('authorization')!.split(' ');
+        const bearer = authKey.split(' ');
         const bearerToken = bearer[1];
 
         const tokenData = await Token.findOne({ tokenable_id: bearerToken });

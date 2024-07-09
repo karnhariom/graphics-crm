@@ -3,10 +3,11 @@ import { connectDb } from "@/config/dbConfig";
 import Cart from "@/models/cartModel";
 import Product from "@/models/productModel";
 import { checkAuthUser } from "@/middlewares/checkAuthUser";
+import { CustomNextRequest } from "@/types/types";
 
 connectDb();
 
-export async function POST(req: NextRequest, res: NextResponse): Promise<NextResponse> {
+export async function POST(req: CustomNextRequest, res: NextResponse): Promise<NextResponse> {
     const userResponse: any = await checkAuthUser(req, res);
     
     if (userResponse.status !== 200) {
