@@ -19,11 +19,11 @@ export const createDefaultAdmin = async () => {
             });
             await defaultAdmin.save();
         } else {
-            
+
             return
         }
     } catch (error) {
-        
+
     }
 };
 
@@ -83,3 +83,11 @@ export const handleFileUpload: any = async (file: any, host: string) => {
         return NextResponse.json({ Message: "Failed", status: 500 });
     }
 }
+
+
+export const minutes = async (time: string) => {
+    const prevTime = new Date(time).getTime();
+    const curnTime = new Date().getTime();
+    const minutes = Math.round((curnTime - prevTime) / 1000 / 60);
+    return minutes;
+};
