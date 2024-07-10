@@ -17,19 +17,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <section className="client-layout">
-          <ClientSideBar />
-          <div className="client-content">
-            <ClientTopBar />
-            <main className="main-content">
-              {children}
-            </main>
-
-          </div>
-        </section>
-      </body>
-    </html>
+    <section className="client-layout">
+      <ClientSideBar />
+      <div className="client-content">
+        <ClientTopBar />
+        <main className="main-content">
+          {children}
+        </main>
+      </div>
+    </section>
   );
 }

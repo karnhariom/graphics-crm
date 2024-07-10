@@ -1,9 +1,11 @@
 "use client"
-import axios from 'axios'
+import { login } from '@/app/(auth)/_redux/authApi'
 import { useFormik } from 'formik'
+import { useDispatch } from 'react-redux'
 import * as Yup from "yup"
 
 export default function ClientLoginForm() {
+    const dispatch = useDispatch()
     const initialValues = {
         email: "",
         password: ""
@@ -16,19 +18,14 @@ export default function ClientLoginForm() {
         initialValues,
         validationSchema,
         onSubmit: async (values) => {
-            await axios("/api/user/login-user",
-                {
-                    method: "POST",
-                    data: {
-                        email: values.email,
-                        password: values.password
-                    }
-                }
-            ).then((data)=>{
-                console.log("login<response",data)
-            }).catch((err)=>{
-              console.log(err)
-            })
+            console.log("values =>", values)
+            const data: any = {
+                email: values.email,
+                password: values.password
+            }
+            console.log("data => ", data)
+            const res = await dispatch(login(data))
+            console.log("res =>", res )
         }
     })
     return (

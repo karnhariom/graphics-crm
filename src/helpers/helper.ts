@@ -19,11 +19,11 @@ export const createDefaultAdmin = async () => {
             });
             await defaultAdmin.save();
         } else {
-            
+
             return
         }
     } catch (error) {
-        
+
     }
 };
 
@@ -83,3 +83,8 @@ export const handleFileUpload: any = async (file: any, host: string) => {
         return NextResponse.json({ Message: "Failed", status: 500 });
     }
 }
+
+// export const options: any = {
+//     autoClose: 3000,
+//     icon: true,
+// };
