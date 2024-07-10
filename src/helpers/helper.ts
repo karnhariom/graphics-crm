@@ -91,3 +91,7 @@ export const minutes = async (time: string) => {
     const minutes = Math.round((curnTime - prevTime) / 1000 / 60);
     return minutes;
 };
+// export const options: any = {
+//     autoClose: 3000,
+//     icon: true,
+// };
