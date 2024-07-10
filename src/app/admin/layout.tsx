@@ -16,21 +16,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <section className="admin-layout">
-          <div className="admin-sidebar">
+    <section className="admin-layout">
+      <div className="admin-sidebar">
 
-          </div>
-          <div className="admin-content">
-            <AdminTopBar />
-            <main>
-              {children}
-            </main>
+      </div>
+      <div className="admin-content">
+        <AdminTopBar />
+        <main>
+          {children}
+        </main>
 
-          </div>
-        </section>
-      </body>
-    </html>
+      </div>
+    </section>
   );
 }

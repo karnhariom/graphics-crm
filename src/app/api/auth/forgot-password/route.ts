@@ -1,11 +1,12 @@
 import { connectDb } from "@/config/dbConfig";
 import { randomToken } from "@/helpers/helper";
+import { sendMail } from "@/helpers/mail";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
 connectDb();
 
-export async function POST(request: NextRequest) {
+export const POST = async (request: NextRequest) => {
     try {
         const reqBody = await request.json();
         const { email } = reqBody;
@@ -19,18 +20,22 @@ export async function POST(request: NextRequest) {
         }
         const passwordResetToken = await randomToken();
 
-        const passwordResetTokenExpiry = Date.now() + 3600000;
-
         user.passwordVerifyToken = passwordResetToken;
-        user.passwordVerifyTokenExpiry = passwordResetTokenExpiry;
 
         await user.save();
 
+        const payload = {
+            to: user?.email,
+            title: "Forgot Password",
+            data: `${process.env.MAIN}${passwordResetToken}`,
+        };
+
+        await sendMail(payload)
+
         return NextResponse.json({
-            message: "Password reset token generated successfully",
+            message: "Reset link sent Successfully",
             status: 200,
-            token: passwordResetToken, 
-            expiresIn: passwordResetTokenExpiry
+            token: passwordResetToken,
         });
 
     } catch (error: any) {

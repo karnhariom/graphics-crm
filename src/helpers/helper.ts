@@ -4,6 +4,7 @@ import CryptoJS from "crypto-js";
 import { writeFile } from "fs/promises";
 import { NextResponse } from "next/server";
 import path from "path";
+import { useState } from "react";
 
 export const createDefaultAdmin = async () => {
     try {
@@ -91,7 +92,7 @@ export const minutes = async (time: string) => {
     const minutes = Math.round((curnTime - prevTime) / 1000 / 60);
     return minutes;
 };
-// export const options: any = {
-//     autoClose: 3000,
-//     icon: true,
-// };
+export const options: any = {
+    autoClose: 3000,
+    icon: true,
+};

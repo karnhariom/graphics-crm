@@ -17,12 +17,16 @@
     border-radius: 10px;
 }
 
+:disabled{
+    cursor: not-allowed;
+}
+
 a {
     color: inherit;
     text-decoration: none;
 }
 
-button{
+button {
     outline: none;
     border-radius: 5px;
     font-size: 17px;
@@ -51,13 +55,22 @@ textarea {
     text-align: center;
 }
 
+.t-right {
+    text-align: right;
+}
+
+.err-msg {
+    font-size: 13px;
+    color: red;
+}
+
 .inp-box {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.accept-div{
+.accept-div {
     display: flex;
     gap: 10px;
     align-items: baseline;
@@ -114,8 +127,32 @@ textarea {
     font-weight: 500;
 }
 
-.cred-form .form-body{
+.cred-form .form-body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+.pwd-field{
+    position: relative;
+}
+
+.pwd-field input{
+    padding-right: 40px;
+    width: 100%;
+}
+
+.pwd-field .pwd-eye{
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.cred-form .note {
+    margin-top: 15px;
+}
+
+.note a {
+    color: var(--orange);
 }

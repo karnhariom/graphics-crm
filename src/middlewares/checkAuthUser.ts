@@ -17,6 +17,7 @@ export const checkAuthUser = async (req: CustomNextRequest, res: NextResponse) =
         }
 
         const bearer = req.headers.get('authorization')!.split(' ');
+        
         const bearerToken = bearer[1];
 
         const tokenData = await Token.findOne({ tokenable_id: bearerToken });

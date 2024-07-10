@@ -1,8 +1,14 @@
 "use client"
+import { getUserDetail } from '@/app/dashboard/_redux/userApi'
 import { useFormik } from 'formik'
+import { useEffect } from 'react'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as Yup from "yup"
 
 export default function ProfileForm() {
+    const { userDetail } = useSelector((state: any) => state.user, shallowEqual)
+    
+    const dispatch = useDispatch()
     const initialValues = {
         name: "",
         company: "",
@@ -21,9 +27,30 @@ export default function ProfileForm() {
         initialValues,
         validationSchema,
         onSubmit: async (values) => {
-            console.log("values: ", values)
+            console.log('values: ', values);   
         }
     })
+
+    useEffect(() => {
+        dispatch(getUserDetail())
+    }, [])
+
+    useEffect(() => {
+        if (userDetail) {
+            formik.setValues({
+                name: userDetail?.name ? userDetail?.name : "",
+                company: userDetail?.company ? userDetail?.company : "",
+                phone: userDetail?.phone ? userDetail?.phone : "",
+                email: userDetail?.email ? userDetail?.email : "",
+                address: userDetail?.address ? userDetail?.address : "",
+                state: userDetail?.state ? userDetail?.state : "",
+                city: userDetail?.city ? userDetail?.city : "",
+                pincode: userDetail?.pincode ? userDetail?.pincode : ""
+            })
+        }
+    }, [userDetail])
+
+
     return (
         <form className='profile-form' onSubmit={formik.handleSubmit}>
             <h3 className="form-title">My Profile</h3>

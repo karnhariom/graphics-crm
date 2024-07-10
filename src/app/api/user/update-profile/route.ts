@@ -7,9 +7,8 @@ import { NextResponse } from "next/server";
 
 connectDb()
 
-export async function GET(req: CustomNextRequest, res: NextResponse) {
+export async function PUT(req: CustomNextRequest, res: NextResponse) {
     const userResponse: any = await checkAuthUser(req, res);
-
     if (userResponse.status !== 200) {
         return userResponse;
     }
@@ -22,9 +21,10 @@ export async function GET(req: CustomNextRequest, res: NextResponse) {
         if(!user){
             return NextResponse.json({
                 message: "User not found",
-                status: 404,
+                status: 404
             });
         }
+        
         return NextResponse.json({
             message: "User successfully retrieved",
             status: 200,

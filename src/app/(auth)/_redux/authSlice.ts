@@ -6,8 +6,6 @@ const authSlice = createSlice({
     initialState: {
         isLoading: false,
         token: null,
-        userEmail: null,
-        phone: null
     },
     reducers: {
         isLoadingToggle: (state, action) =>
@@ -28,8 +26,6 @@ const authSlice = createSlice({
         builder.addCase(login.fulfilled, (state, action) => {
             state.isLoading = false;
             state.token = action.payload.token;
-            state.userEmail = action.payload.data.email;
-            state.phone = action.payload.data.phone;
         });
         builder.addCase(login.rejected, (state, action) => {
             state.isLoading = false;
@@ -42,8 +38,6 @@ const authSlice = createSlice({
         builder.addCase(logout.fulfilled, (state, action) => {
             state.isLoading = false;
             state.token = null;
-            state.userEmail = null;
-            state.phone = null;
         });
 
         builder.addCase(logout.rejected, (state, action) => {
