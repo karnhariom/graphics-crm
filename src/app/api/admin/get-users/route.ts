@@ -15,7 +15,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         const userList = await User.find({ isDeleted: false });
         return NextResponse.json({
             success: true,
-            contacts: userList
+            data: userList
         });
 
     } catch (error: any) {

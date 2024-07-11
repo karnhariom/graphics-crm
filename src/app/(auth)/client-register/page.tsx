@@ -1,4 +1,4 @@
-import ClientRegisterForm from '@/components/ClientRegisterForm'
+import ClientRegisterForm from '@/app/dashboard/_components/ClientRegisterForm'
 import React from 'react'
 
 export default function ClientRegister() {

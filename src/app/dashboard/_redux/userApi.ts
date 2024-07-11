@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { isUserLoadingToggle } from "./userSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { options } from "@/helpers/helper";
 
 export const getUserDetail: any = createAsyncThunk(
     "user/profile-detail",
@@ -54,3 +55,32 @@ export const changeUserPassword: any = createAsyncThunk(
         }
     }
 )
+
+export const updateUserProfile: any = createAsyncThunk(
+    "user/update-profile",
+    async (data: any, { dispatch }) => {
+        try {
+            dispatch(isUserLoadingToggle(true));
+            const response = await axios({
+                method: "PUT",
+                url: `/api/user/update-profile`,
+                data: data,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            if (response.status === 200) {
+                dispatch(getUserDetail());
+                dispatch(isUserLoadingToggle(false));
+                toast.success(response?.data?.message);
+                return response?.data?.status;
+            } else {
+                dispatch(isUserLoadingToggle(false));
+                toast.error(response?.data?.message);
+            }
+        } catch (err) {
+            dispatch(isUserLoadingToggle(false));
+            console.warn(err);
+        }
+    }
+);

@@ -48,7 +48,7 @@ export default function ClientForgotPasswordForm() {
                     </div>
                     <button type="submit" disabled={isLoading}>Reset Password</button>
                 </div>
-                <p className='t-center note'><Link href="/client-login">Back to sign in</Link></p>
+                {/* <p className='t-center note'><Link href="/client-login">Back to sign in</Link></p> */}
             </form>
         </div>
     )

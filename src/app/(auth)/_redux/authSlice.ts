@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, logout } from "./authApi";
+import { adminLogin, login, logout } from "./authApi";
 
 const authSlice = createSlice({
     name: "auth",
@@ -25,9 +25,20 @@ const authSlice = createSlice({
         });
         builder.addCase(login.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.token = action.payload.token;
+            state.token = action?.payload?.token;
         });
         builder.addCase(login.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        builder.addCase(adminLogin.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(adminLogin.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.token = action?.payload?.token;
+        });
+        builder.addCase(adminLogin.rejected, (state, action) => {
             state.isLoading = false;
         });
 

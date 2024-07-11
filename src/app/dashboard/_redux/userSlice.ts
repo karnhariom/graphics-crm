@@ -21,7 +21,7 @@ const userSlice = createSlice({
         builder.addCase(getUserDetail.fulfilled, (state, action) => {
             
             state.isUserLoading = false;
-            state.userDetail = action.payload.user;
+            state.userDetail = action?.payload?.user;
         });
         builder.addCase(getUserDetail.rejected, (state, action) => {
             state.isUserLoading = false;

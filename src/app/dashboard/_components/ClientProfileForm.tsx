@@ -1,13 +1,12 @@
 "use client"
-import { getUserDetail } from '@/app/dashboard/_redux/userApi'
+import { getUserDetail, updateUserProfile } from '@/app/dashboard/_redux/userApi'
 import { useFormik } from 'formik'
 import { useEffect } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as Yup from "yup"
 
-export default function ProfileForm() {
+export default function ClientProfileForm() {
     const { userDetail } = useSelector((state: any) => state.user, shallowEqual)
-    
     const dispatch = useDispatch()
     const initialValues = {
         name: "",
@@ -20,20 +19,33 @@ export default function ProfileForm() {
         pincode: ""
     }
     const validationSchema = Yup.object({
+        name: Yup.string().required("Name is required"),
+        phone: Yup.string().required("Phone is required"),
+        company: Yup.string(),
         email: Yup.string().email("Invalid email format").required("Email is required"),
-        password: Yup.string().required("Password is required")
     })
     const formik = useFormik({
         initialValues,
         validationSchema,
         onSubmit: async (values) => {
             console.log('values: ', values);   
+            const data = {
+                name: values.name,
+                email: values.email,
+                company: values.company,
+                phone: values.phone,
+                state: values.state,
+                city: values.city,
+                address: values.address,
+                pincode: values.pincode
+            }
+            await dispatch(updateUserProfile(data))
         }
     })
 
     useEffect(() => {
         dispatch(getUserDetail())
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
         if (userDetail) {

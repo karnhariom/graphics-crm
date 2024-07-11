@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { isLoadingToggle } from "./authSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { isAdminLoadingToggle } from "@/app/admin/_redux/adminSlice";
 
 export const register: any = createAsyncThunk(
     "user/register",
@@ -58,6 +59,37 @@ export const login: any = createAsyncThunk(
             }
         } catch (err) {
             dispatch(isLoadingToggle(false));
+            return rejectWithValue();
+        }
+    }
+);
+
+export const adminLogin: any = createAsyncThunk(
+    "admin/login",
+    async (data: any, { rejectWithValue, fulfillWithValue, dispatch }: any) => {
+        try {
+            dispatch(isAdminLoadingToggle(true));
+            const response = await axios({
+                method: "POST",
+                url: `/api/auth/admin-login`,
+                data: data,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            console.log('response: ', response);
+            if (response.status === 200) {
+                toast.success(response?.data?.message);
+                dispatch(isAdminLoadingToggle(false));
+                return fulfillWithValue(response?.data);
+            } else {
+                toast.error(response?.data?.message);
+                dispatch(isAdminLoadingToggle(false));
+                return rejectWithValue();
+            }
+        } catch (err) {
+            dispatch(isAdminLoadingToggle(false));
             return rejectWithValue();
         }
     }

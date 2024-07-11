@@ -1,4 +1,4 @@
-import ClientLoginForm from "@/components/ClientLoginForm";
+import ClientLoginForm from "@/app/dashboard/_components/ClientLoginForm";
 
 
 export default function ClientLogin() {

@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "@/utils/admin.css";
-import AdminTopBar from "@/components/AdminTopBar";
-
-const inter = Inter({ subsets: ["latin"] });
+import AdminTopBar from "./_components/AdminTopBar";
+import AdminSideBar from "./_components/AdminSideBar";
 
 export const metadata: Metadata = {
   title: "Graphics Admin Dashboard",
@@ -18,7 +16,7 @@ export default function RootLayout({
   return (
     <section className="admin-layout">
       <div className="admin-sidebar">
-
+        <AdminSideBar />
       </div>
       <div className="admin-content">
         <AdminTopBar />

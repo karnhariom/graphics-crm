@@ -1,5 +1,5 @@
+import AdminLoginForm from '@/app/admin/_components/AdminLoginForm'
 import React from 'react'
-import AdminLoginForm from './_components/AdminLoginForm'
 
 export default function AdminLogin() {
     return (

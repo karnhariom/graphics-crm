@@ -1,9 +1,10 @@
-import ProfileForm from "@/components/ProfileForm";
+import ClientProfileForm from "../_components/ClientProfileForm";
+
 
 export default function ClientProfile() {
     return (
         <section className="profile-page section">
-            <ProfileForm />
+            <ClientProfileForm />
 
         </section>
     )
