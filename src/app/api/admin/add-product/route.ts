@@ -4,6 +4,7 @@ import Product from "@/models/productModel";
 import Category from "@/models/categoryModel";
 import mongoose from "mongoose";
 import { checkAuthAdmin } from "@/middlewares/checkAuthAdmin";
+import { handleFileUpload } from "@/helpers/helper";
 
 connectDb();
 
@@ -27,16 +28,26 @@ export async function POST(req: NextRequest, res: NextResponse): Promise<NextRes
     }
 
     try {
-        const reqBody = await req.json();
-        const { title, description, price, category } = reqBody;
+        const reqBody: any = await req.formData()
+        const title = reqBody.get("title");
+        const description = reqBody.get("description");
+        const price = reqBody.get("price");
+        const category = reqBody.get("category");
+        const productImage = reqBody.get("productImage");
+        const slug = reqBody.get("slug");
+        const { host } = req.nextUrl;
+        const fileUrl = await handleFileUpload(productImage, host);
+
         const categories = await getAllParentCategories(category);
 
         const newProduct = new Product({
             title,
             description,
             price,
-            category,
+            category: new mongoose.Types.ObjectId(category),
             categories,
+            productImage: fileUrl,
+            slug
         });
 
         const savedProduct = await newProduct.save();

@@ -4,6 +4,7 @@ import { checkAuthAdmin } from "@/middlewares/checkAuthAdmin";
 import Category from "@/models/categoryModel";
 import { NextRequest, NextResponse } from "next/server";
 
+
 connectDb()
 
 export const config = {
@@ -19,10 +20,12 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     }
     try {
         const reqBody: any = await req.formData()
+        
         const title = reqBody.get("title")
         const categorySlug = reqBody.get("categorySlug")
         const parentCategory = reqBody.get("parentCategory")
         const categoryImage = reqBody.get("categoryImage")
+        const description = reqBody.get("description")
         const { host } = req.nextUrl
 
         const fileurl = await handleFileUpload(categoryImage, host)
@@ -39,7 +42,8 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
             title,
             categoryImage: fileurl,
             categorySlug,
-            parentCategory
+            parentCategory: parentCategory === "" ? null : parentCategory,
+            description
         })
 
         const savedCategory = await newCategory.save()

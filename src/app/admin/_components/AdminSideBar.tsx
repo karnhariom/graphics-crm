@@ -11,6 +11,15 @@ export default function AdminSideBar() {
                 <div className='side-navlink'>
                     <Link href="/admin/user-list" >User List</Link>
                 </div>
+                <div className='side-navlink'>
+                    <Link href="/admin/categories" >Categories</Link>
+                </div>
+                <div className='side-navlink'>
+                    <Link href="/admin/products" >All Products</Link>
+                </div>
+                <div className='side-navlink'>
+                    <Link href="/admin/products/add-product" >Add Products</Link>
+                </div>
             </nav>
         </div>
     )

@@ -2,6 +2,7 @@
 import { adminLogin, login } from '@/app/(auth)/_redux/authApi'
 import { useFormik } from 'formik'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as Yup from "yup"
@@ -9,6 +10,7 @@ import * as Yup from "yup"
 export default function AdminLoginForm() {
 
   const dispatch = useDispatch()
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const { isAdminLoading } = useSelector((state: any) => state.admin, shallowEqual)
 
@@ -30,6 +32,10 @@ export default function AdminLoginForm() {
         password: values.password
       }
       const res = await dispatch(adminLogin(data))
+      console.log(res)
+      if(res?.payload?.success){
+        router.push("/admin/profile")
+      }
     }
   })
   return (

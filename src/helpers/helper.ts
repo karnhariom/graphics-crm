@@ -70,17 +70,19 @@ export const randomToken = async () => {
 
 export const handleFileUpload: any = async (file: any, host: string) => {
     console.log("file =>", file)
-    const buffer = Buffer.from(await file!.arrayBuffer());
-    const filename = `${Date.now()}_${file.name.replaceAll(" ", "_")}`;
-    try {
-        await writeFile(
-            path.join(process.cwd(), "public/uploads/" + filename),
-            buffer
-        );
-        return `http://${host}/uploads/${filename}`;
-    } catch (error) {
-
-        return NextResponse.json({ Message: "Failed", status: 500 });
+    if(file) {
+        const buffer = Buffer.from(await file!.arrayBuffer());
+        const filename = `${Date.now()}_${file.name.replaceAll(" ", "_")}`;
+        try {
+            await writeFile(
+                path.join(process.cwd(), "public/uploads/" + filename),
+                buffer
+            );
+            return `http://${host}/uploads/${filename}`;
+        } catch (error) {
+    
+            return NextResponse.json({ Message: "Failed", status: 500 });
+        }
     }
 }
 

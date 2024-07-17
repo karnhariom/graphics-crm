@@ -156,3 +156,151 @@ textarea {
 .note a {
     color: var(--orange);
 }
+
+.catg-table{
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 20px;
+    
+}
+
+.catg-table .ctg-table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.catg-table tr .catact-links{
+    opacity: 0;
+    visibility: 0;
+    font-size: 13px;
+    margin-top: 4px;
+    display: flex;
+    gap: 10px;
+    color: var(--orange);
+}
+
+.catact-links .clinks{
+    display: block;
+    position: relative;
+    cursor: pointer;
+}
+
+.catact-links .clinks:not(:last-child)::after{
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 70%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--blue);
+    right: -5px;
+}
+
+.catg-table tr:hover .catact-links{
+    opacity: 1;
+    visibility: visible;
+}
+
+.ctg-table td,
+.ctg-table th{
+    padding: 5px 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.ctg-table thead{
+    border-bottom: 1px solid var(--blue);
+}
+
+.ctg-table tbody tr:nth-child(odd){
+    background-color: #f6f7f7;
+}
+
+.add-catg {
+    padding: 10px;
+}
+
+.add-catg .catg-form {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* dropdown css  */
+
+.dropdown-container .drop_second-div {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    /* sa  */
+    border: 1px solid rgb(63, 63, 63);
+    outline: none;
+    border-radius: 5px;
+    font-size: 17px;
+    padding: 7px 10px;
+}
+
+
+.drop_second-div.active .ab_label_text {
+    background-color: #fff;
+    opacity: 1;
+    top: 0;
+    transform: translateY(-50%);
+}
+
+.drop_second-div .dropdown-selected-value {
+    font-size: 15px;
+    width: calc(100% - 1.3rem);
+}
+
+.drop_second-div .iconsvg {
+    display: flex;
+    cursor: pointer;
+}
+
+.iconsvg .material-symbols-outlined {
+    color: #919191;
+    font-size: 1.3rem;
+}
+
+.dropdown-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.dropdown-container .dropdown-menu {
+    background-color: #fff;
+    border-radius: 5px;
+    left: 0;
+    max-height: 200px;
+    overflow-y: scroll;
+    position: absolute;
+    width: 100%;
+    z-index: 4 !important;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: 1px solid black;
+}
+
+.dropdown-menu .dropdown-item {
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 0.5rem;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #edf1f7;
+    border-radius: 0.4rem;
+}
+
+.dropdown-container .dropdown-menu::-webkit-scrollbar {
+    display: none;
+}

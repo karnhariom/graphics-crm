@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  getAdminDetail, getUserList } from "./adminApi";
+import {  getAdminDetail, getCategories, getUserList } from "./adminApi";
 
 const adminSlice = createSlice({
     name: "admin",
     initialState: {
         isAdminLoading: false,
         adminDetail: [],
-        userList: []
+        userList: [],
+        categoryList: []
     },
     reducers: {
         isAdminLoadingToggle: (state, action) =>
@@ -35,6 +36,17 @@ const adminSlice = createSlice({
             state.userList = action?.payload?.data;
         });
         builder.addCase(getUserList.rejected, (state, action) => {
+            state.isAdminLoading = false;
+        });
+
+        builder.addCase(getCategories.pending, (state, action) => {
+            state.isAdminLoading = true;
+        });
+        builder.addCase(getCategories.fulfilled, (state, action) => {
+            state.isAdminLoading = false;
+            state.categoryList = action?.payload?.categoryList;
+        });
+        builder.addCase(getCategories.rejected, (state, action) => {
             state.isAdminLoading = false;
         });
     }
