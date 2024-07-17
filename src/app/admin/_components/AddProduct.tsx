@@ -1,12 +1,11 @@
 "use client"
-import Dropdown from '@/components/Dropdown'
-import DropdownC from '@/components/DropdownC'
 import { convertToWebP } from '@/helpers/clientHelper'
 import { useFormik } from 'formik'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as Yup from "yup"
-import { addCategory, addProduct, getCategories } from '../_redux/adminApi'
+import { addProduct, getCategories } from '../_redux/adminApi'
+import RecursiveCheckbox from './RecursiveCheckbox'
 
 interface CategoryProps {
     _id: string;
@@ -24,7 +23,10 @@ interface RootState {
 
 export default function AddProduct() {
     const { categoryList } = useSelector((state: RootState) => state.admin, shallowEqual);
+
     const dispatch = useDispatch()
+
+    const [displayImage, setDisplayImage] = useState("")
 
     useEffect(() => {
         dispatch(getCategories());
@@ -73,26 +75,13 @@ export default function AddProduct() {
             if (convertedFile) {
                 formik.setFieldValue("productImage", convertedFile)
             }
+            setDisplayImage(URL.createObjectURL(event.target.files[0]));
         }
     }
-    const handleParentSelect = (value: any) => {
-        formik.setFieldValue("parentCategory", value);
-    }
-    const buildParentOptions = (categories: CategoryProps[], level = 0, options: { value: string, label: string }[] = []): { value: string, label: string }[] => {
-        categories.forEach(category => {
-            const prefix = Array(level).fill(`&nbsp`).join('');
-            options.push({ value: category._id, label: `${prefix} ${category.title}` });
-            if (category.children.length > 0) {
-                buildParentOptions(category.children, level + 1, options);
-            }
-        });
-        return options;
-    }
-    const parentOpts = [{ label: "None", value: "" }, ...buildParentOptions(categoryList)];
 
     return (
         <div>
-            <h4>Add New Category</h4>
+            <h4>Add New Product</h4>
             <form className="prod-form" onSubmit={formik.handleSubmit}>
                 <div className="form-left section">
                     <div className="inp-box">
@@ -166,9 +155,10 @@ export default function AddProduct() {
                         }
                     </div>
                 </div>
-                <div className="form-right section">
-                    <div className="inp-box">
+                <div className="form-right">
+                    <div className="inp-box section prd-img">
                         <label htmlFor="productImage">Product Image</label>
+                        <img src={displayImage} alt="" />
                         <input
                             className={formik.touched.productImage && formik.errors.productImage ? "err" : ""}
                             type="file"
@@ -182,13 +172,15 @@ export default function AddProduct() {
                             null
                         }
                     </div>
-                    <Dropdown
-                        options={parentOpts}
-                        giveValue={handleParentSelect}
-                        placeholder={"Category"}
-                        label={"Category"}
-                        preSelected={formik.values.category}
-                    />
+                    <div className="section catg-box">
+                        <p>Select Category</p>
+                        <div className="catg-list">
+                            {categoryList.map((category: any) => (
+                                <RecursiveCheckbox key={category._id} category={category} />
+                            ))}
+                        </div>
+                        <button type='button'>Add New Category</button>
+                    </div>
                 </div>
                 <button type="submit" className='btn blu-btn'>Add Category</button>
             </form>

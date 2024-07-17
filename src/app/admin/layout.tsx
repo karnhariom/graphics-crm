@@ -20,8 +20,10 @@ export default function RootLayout({
       </div>
       <div className="admin-content">
         <AdminTopBar />
-        <main>
-          {children}
+        <main className="admin-main">
+          <div className="admin-children">
+            {children}
+          </div>
         </main>
 
       </div>
