@@ -34,9 +34,9 @@ export default function UserListTable() {
                     </thead>
                     <tbody>
                         {
-                            userList && userList.length > 0 ? (
+                            userList && userList.length > 0 && (
                                 userList.map((user: any, index: number) =>
-                                    <tr>
+                                    <tr key={user._id}>
                                         <td>{index + 1}</td>
                                         <td>{user.name}</td>
                                         <td>{user.phone}</td>
@@ -50,7 +50,7 @@ export default function UserListTable() {
                                         </td>
                                     </tr>
                                 )
-                            ) : ""
+                            ) 
                         }
 
                     </tbody>

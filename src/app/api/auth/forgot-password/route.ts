@@ -28,9 +28,10 @@ export const POST = async (request: NextRequest) => {
             to: user?.email,
             title: "Forgot Password",
             data: `${process.env.MAIN}${passwordResetToken}`,
+            template: "forgot-password"
         };
 
-        await sendMail(payload)
+        await sendMail(payload);
 
         return NextResponse.json({
             message: "Reset link sent Successfully",
@@ -44,4 +45,4 @@ export const POST = async (request: NextRequest) => {
             status: 500,
         });
     }
-}
+};

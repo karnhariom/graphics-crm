@@ -32,20 +32,19 @@ export async function POST(req: NextRequest, res: NextResponse): Promise<NextRes
         const title = reqBody.get("title");
         const description = reqBody.get("description");
         const price = reqBody.get("price");
-        const category = reqBody.get("category");
+        const category = (reqBody.get("category"));
+        console.log('category: ', category);
         const productImage = reqBody.get("productImage");
         const slug = reqBody.get("slug");
         const { host } = req.nextUrl;
         const fileUrl = await handleFileUpload(productImage, host);
-
-        const categories = await getAllParentCategories(category);
+        
 
         const newProduct = new Product({
             title,
             description,
             price,
             category: new mongoose.Types.ObjectId(category),
-            categories,
             productImage: fileUrl,
             slug
         });
@@ -56,12 +55,11 @@ export async function POST(req: NextRequest, res: NextResponse): Promise<NextRes
             message: "Product created successfully!",
             success: true,
             savedProduct
-        });
+        }, { status: 200 });
 
     } catch (error: any) {
         return NextResponse.json({
             message: error.message,
-            status: 500
-        });
+        }, { status: 500 });
     }
 }

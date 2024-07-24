@@ -1,4 +1,6 @@
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
+import hbs from 'nodemailer-express-handlebars';
+import path from 'path';
 
 export const sendMail = async (payload: any) => {
     try {
@@ -9,18 +11,32 @@ export const sendMail = async (payload: any) => {
                 pass: process.env.SMTP_PASSWORD,
             },
         });
-
-        const mailOptions = {
-            from: `${process.env.SMTP_USER}`,
-            to: payload?.to,
-            subject: payload?.title,
-            text: `Forgot password link: ${payload?.data}`
+        const handlebarOptions: any = {
+            viewEngine: {
+                extName: '.handlebars',
+                partialsDir: path.resolve('public/templates'),
+                defaultLayout: false,
+            },
+            viewPath: path.resolve('public/templates'),
+            extName: '.handlebars',
         };
 
-        const mailRes = await transporter.sendMail(mailOptions)
-        return mailRes
+        transporter.use('compile', hbs(handlebarOptions));
+
+        const mailOptions = {
+            from: `Graphics CRM | ${process.env.SMTP_USER}`,
+            to: payload?.to,
+            subject: payload?.title,
+            template: payload.template,
+            context: {
+                data: payload?.data,
+            },
+        };
+
+        const mailRes = await transporter.sendMail(mailOptions);
+        return mailRes;
 
     } catch (error) {
         console.log('error: ', error);
     }
-}
+};

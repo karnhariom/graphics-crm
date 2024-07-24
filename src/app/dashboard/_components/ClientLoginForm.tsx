@@ -2,6 +2,7 @@
 import { login } from '@/app/(auth)/_redux/authApi'
 import { useFormik } from 'formik'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import * as Yup from "yup"
@@ -9,6 +10,7 @@ import * as Yup from "yup"
 export default function ClientLoginForm() {
 
     const dispatch = useDispatch()
+    const router = useRouter()
     const [showPassword, setShowPassword] = useState(false)
     const {isLoading} = useSelector((state: any) => state.auth, shallowEqual)
 
@@ -30,6 +32,10 @@ export default function ClientLoginForm() {
                 password: values.password
             }
             const res = await dispatch(login(data))
+            console.log('res: ', res);
+            if(res?.payload?.success){
+                router.push("/dashboard")
+            }
         }
     })
     return (

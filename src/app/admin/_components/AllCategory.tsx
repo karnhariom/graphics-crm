@@ -47,13 +47,11 @@ export default function AllCategory() {
           </tr>
         </thead>
         <tbody>
-          {categoryList.length > 0 ? (
+          {categoryList.length > 0 && (
             categoryList.map((category: CategoryProps) => (
               <CategoryRow key={category._id} category={category} level={0} handelDelete={handelDelete} />
             ))
 
-          ) : (
-            ""
           )}
         </tbody>
       </table>
@@ -69,7 +67,7 @@ function CategoryRow({ category, level, handelDelete }: { category: CategoryProp
       <tr>
         <td>
           <p> {prefix} {category.title}</p>
-          <p className='catact-links'>
+          <div className='catact-links'>
             <div className="clinks">
               <Link href="">Edit</Link>
             </div>
@@ -79,7 +77,7 @@ function CategoryRow({ category, level, handelDelete }: { category: CategoryProp
             <div className="clinks">
               <div onClick={() => handelDelete(category)}>Delete</div>
             </div>
-          </p>
+          </div>
         </td>
         <td>{category.categorySlug}</td>
         <td>{category.description}</td>

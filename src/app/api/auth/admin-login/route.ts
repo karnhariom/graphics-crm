@@ -15,22 +15,21 @@ export async function POST(request: NextRequest) {
         if (!user) {
             return NextResponse.json({
                 message: "User not found",
-                status: 400
+            }, {
+                status: 400,
             });
         }
         if (user && user.role !== "admin") {
             return NextResponse.json({
                 message: "Unauthorized User",
-                status: 400
-            });
+            }, { status: 400 });
         }
         const validPassword = await checkPassword(password, user.password);
-        
+
         if (!validPassword) {
             return NextResponse.json({
                 message: "Invalid credentials",
-                status: 400
-            });
+            }, { status: 400 });
         }
         const payload = { id: user._id };
 
@@ -38,8 +37,7 @@ export async function POST(request: NextRequest) {
         if (!tokenSecret) {
             return NextResponse.json({
                 message: "Server configuration error",
-                status: 500
-            });
+            }, { status: 500 });
         }
 
         const token = await createToken(payload)
@@ -48,13 +46,12 @@ export async function POST(request: NextRequest) {
             token,
             message: "Logged in successfully",
             success: true
-        });
+        }, { status: 200 });
 
         return jsonResponse;
     } catch (error: any) {
         return NextResponse.json({
             message: error.message,
-            status: 500
-        });
+        }, { status: 500 });
     }
 }

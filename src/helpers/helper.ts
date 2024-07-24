@@ -69,7 +69,7 @@ export const randomToken = async () => {
 };
 
 export const handleFileUpload: any = async (file: any, host: string) => {
-    console.log("file =>", file)
+    
     if(file) {
         const buffer = Buffer.from(await file!.arrayBuffer());
         const filename = `${Date.now()}_${file.name.replaceAll(" ", "_")}`;

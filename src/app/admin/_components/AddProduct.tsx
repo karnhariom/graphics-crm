@@ -23,7 +23,8 @@ interface RootState {
 
 export default function AddProduct() {
     const { categoryList } = useSelector((state: RootState) => state.admin, shallowEqual);
-
+    const [selectedCategory, setSelectedCategory]: any = useState([])
+    console.log('selectedCategory: ', selectedCategory);
     const dispatch = useDispatch()
 
     const [displayImage, setDisplayImage] = useState("")
@@ -31,7 +32,7 @@ export default function AddProduct() {
     useEffect(() => {
         dispatch(getCategories());
     }, [dispatch]);
-    const initialValues = {
+    const initialValues: any = {
         title: "",
         slug: "",
         description: "",
@@ -39,7 +40,7 @@ export default function AddProduct() {
         productImage: null,
         price: ""
     }
-    const validationSchema = Yup.object({
+    const validationSchema: any = Yup.object({
         title: Yup.string().required("Category Title is required"),
         slug: Yup.string().required("Category Slug is required"),
         price: Yup.string().required("Price is required"),
@@ -47,19 +48,31 @@ export default function AddProduct() {
         description: Yup.string(),
         productImage: Yup.mixed().required("Image is required")
     })
-    const formik = useFormik({
+    const formik: any = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: (values) => {
-            const data = {
-                title: values.title,
-                description: values.description,
-                price: values.price,
-                productImage: values.productImage,
-                slug: values.slug,
-                category: values.category
+        onSubmit: async (values, { resetForm }) => {
+            const formData = new FormData();
+            formData.append('title', values.title);
+            formData.append('description', values.description);
+            formData.append('category', JSON.stringify(values.category));
+            formData.append('productImage', values.productImage);
+            formData.append('slug', values.slug);
+            formData.append('price', values.price);
+            const res = await dispatch(addProduct(formData));
+            console.log('res: ', res);
+            if (!res?.error) {
+                resetForm()
             }
-            dispatch(addProduct(data))
+            // const data = {
+            //     title: values.title,
+            //     description: values.description,
+            //     price: values.price,
+            //     productImage: values.productImage,
+            //     slug: values.slug,
+            //     category: values.category
+            // }
+            // dispatch(addProduct(data))
         }
     })
 
@@ -76,6 +89,14 @@ export default function AddProduct() {
                 formik.setFieldValue("productImage", convertedFile)
             }
             setDisplayImage(URL.createObjectURL(event.target.files[0]));
+        }
+    }
+    const handleCategorySelection = (e: any) => {
+        const { id, checked } = e.target;
+        if (checked) {
+            setSelectedCategory([...selectedCategory, id]);
+        } else {
+            setSelectedCategory(selectedCategory.filter((catg: any) => catg !== id));
         }
     }
 
@@ -176,7 +197,12 @@ export default function AddProduct() {
                         <p>Select Category</p>
                         <div className="catg-list">
                             {categoryList.map((category: any) => (
-                                <RecursiveCheckbox key={category._id} category={category} />
+                                <RecursiveCheckbox
+                                    key={category._id}
+                                    category={category}
+                                    handleCategorySelection={handleCategorySelection}
+                                />
+
                             ))}
                         </div>
                         <button type='button'>Add New Category</button>

@@ -6,8 +6,7 @@ export interface IProduct extends Document {
     slug: string;
     description: string;
     price: number;
-    category: mongoose.Schema.Types.ObjectId;
-    categories: mongoose.Schema.Types.ObjectId[];
+    category: any;
     createdBy: mongoose.Schema.Types.ObjectId;
     updatedBy: mongoose.Schema.Types.ObjectId;
     deletedBy: mongoose.Schema.Types.ObjectId;
@@ -37,15 +36,10 @@ const productSchema = new Schema<IProduct>({
         required: [true, "Product price is required"]
     },
     category: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: [String],
         ref: "Category",
-        required: [true, "Product category is required"]
+        default: null,
     },
-    categories: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category",
-        required: true
-    }],
     isDeleted: {
         type: Boolean,
         default: false

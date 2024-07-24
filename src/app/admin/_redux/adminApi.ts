@@ -16,7 +16,7 @@ export const getAdminDetail: any = createAsyncThunk(
                     "Content-Type": "application/json",
                 },
             });
-            console.log("response: ", response)
+            
             if (response.status === 200) {
                 dispatch(isAdminLoadingToggle(false));
                 return response?.data;
@@ -41,7 +41,7 @@ export const getUserList: any = createAsyncThunk(
                     "Content-Type": "application/json",
                 },
             });
-            console.log("response: ", response)
+            
             if (response.status === 200) {
                 dispatch(isAdminLoadingToggle(false));
                 return fulfillWithValue(response?.data)
@@ -98,7 +98,7 @@ export const getCategories: any = createAsyncThunk(
                     "Content-Type": "multipart/form-data",
                 },
             });
-            console.log("response => ", response)
+            
             if (response.status === 200) {
                 toast.success(response?.data?.message);
                 dispatch(isAdminLoadingToggle(false));
@@ -138,7 +138,7 @@ export const deleteCategory: any = createAsyncThunk(
                 dispatch(isAdminLoadingToggle(false));
             }
         } catch (err) {
-            console.log('err: ', err);
+            
             dispatch(isAdminLoadingToggle(false));
         }
     }
@@ -157,6 +157,7 @@ export const addProduct: any = createAsyncThunk(
                     "Content-Type": "multipart/form-data",
                 },
             });
+            console.log('response: ', response);
             if (response.status === 200) {
                 toast.success(response?.data?.message);
                 dispatch(getCategories())

@@ -1,5 +1,6 @@
 import { connectDb } from "@/config/dbConfig";
 import { generateUsername, hashPassword } from "@/helpers/helper";
+import { sendMail } from "@/helpers/mail";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -32,6 +33,15 @@ export const POST = async (req: NextRequest) => {
         })
 
         const savedUSer = await newUser.save()
+
+        const payload = {
+            to: email,
+            title: "Confirm Your Email",
+            data: `${process.env.MAIN}`,
+            template: "confirm-email"
+        };
+
+        await sendMail(payload);
 
         return NextResponse.json({
             message: "User regestered successfully!",
