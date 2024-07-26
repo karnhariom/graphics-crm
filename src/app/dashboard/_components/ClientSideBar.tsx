@@ -1,7 +1,19 @@
+"use client"
+import { userLogout } from '@/app/(auth)/_redux/authApi'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 
 export default function ClientSideBar() {
+    const router = useRouter()
+    const dispatch = useDispatch()
+    const handleLogout = async () => {
+        const res = await dispatch(userLogout())
+        if(res?.payload?.status === 200){
+            router.push("/")
+        }
+    }
     return (
         <div className="client-sidebar">
             <nav className='side-nav'>
@@ -24,6 +36,7 @@ export default function ClientSideBar() {
                     <Link href="/dashboard/invoice-list" >Invoice List</Link>
                 </div>
             </nav>
+            <button type="button" className='logOut-btn' onClick={handleLogout}>Logout</button>
         </div>
     )
 }

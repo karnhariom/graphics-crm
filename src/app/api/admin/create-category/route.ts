@@ -20,7 +20,7 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     }
     try {
         const reqBody: any = await req.formData()
-        
+
         const title = reqBody.get("title")
         const categorySlug = reqBody.get("categorySlug")
         const parentCategory = reqBody.get("parentCategory")
@@ -33,9 +33,8 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
         const category = await Category.findOne({ categorySlug })
         if (category) {
             return NextResponse.json({
-                message: "Category already exists!",
-                status: 400
-            })
+                message: "Category already exists!"
+            }, { status: 400 })
         }
 
         const newCategory = new Category({
@@ -52,12 +51,11 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
             message: "Category created successfully!",
             success: true,
             savedCategory
-        })
+        }, { status: 200, })
 
     } catch (error: any) {
         return NextResponse.json({
-            status: 500,
             message: error.message
-        })
+        }, { status: 500, })
     }
 }

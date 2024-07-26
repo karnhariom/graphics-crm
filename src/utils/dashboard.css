@@ -120,6 +120,12 @@ textarea {
 
 .client-layout .client-sidebar{
     background-color: #4233ee;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
 }
 
 .client-layout .client-content{
@@ -153,7 +159,6 @@ textarea {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 10px;
 }
 
 .side-nav .side-navlink{

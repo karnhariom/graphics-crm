@@ -41,14 +41,18 @@ export default function AddCategory() {
     const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: (values) => {
+        onSubmit: async (values, { resetForm }) => {
             const data = {
                 title: values.title,
                 categoryImage: values.categoryImage,
                 categorySlug: values.slug,
                 parentCategory: values.parentCategory
             }
-            dispatch(addCategory(data))
+            const res = await dispatch(addCategory(data))
+            
+            if(res?.payload?.success){
+                resetForm()
+            }
         }
     })
 
@@ -57,7 +61,7 @@ export default function AddCategory() {
         const slug = val.replaceAll(" ", "-").toLowerCase()
         formik.setFieldValue("slug", slug)
     }
-    
+
     const handleCatgImage = async (event: any) => {
         if (event.target.files && event.target.files[0]) {
             const convertedFile = await convertToWebP(event)
@@ -131,7 +135,9 @@ export default function AddCategory() {
                         name="categoryImage"
                         id="categoryImage"
                         accept=".png, .webp, .jpg, .jpeg"
-                        onChange={handleCatgImage}
+                        // onChange={handleCatgImage}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                     />
                     {formik.touched.categoryImage && formik.errors.categoryImage ?
                         <span className="err-msg">{formik.errors.categoryImage}</span> :

@@ -69,6 +69,7 @@ export const addCategory: any = createAsyncThunk(
                     "Content-Type": "multipart/form-data",
                 },
             });
+            
             if (response.status === 200) {
                 toast.success(response?.data?.message);
                 dispatch(getCategories())
@@ -157,7 +158,7 @@ export const addProduct: any = createAsyncThunk(
                     "Content-Type": "multipart/form-data",
                 },
             });
-            console.log('response: ', response);
+            
             if (response.status === 200) {
                 toast.success(response?.data?.message);
                 dispatch(getCategories())

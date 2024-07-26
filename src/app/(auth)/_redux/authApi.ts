@@ -95,18 +95,19 @@ export const adminLogin: any = createAsyncThunk(
     }
 );
 
-export const logout = createAsyncThunk(
+export const userLogout: any = createAsyncThunk(
     "user/logout",
-    async (data, { rejectWithValue, fulfillWithValue, dispatch }: any) => {
+    async (data: any, { rejectWithValue, fulfillWithValue, dispatch }: any) => {
         try {
             const response = await axios({
                 method: "POST",
                 url: `/api/user/user-logout`,
             });
+            console.log(response)
 
             if (response.status === 200) {
                 toast.success(response?.data?.message);
-                return fulfillWithValue(response?.data?.status);
+                return fulfillWithValue(response);
             } else {
                 toast.error(response?.data?.message);
                 return rejectWithValue();

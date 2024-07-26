@@ -2,7 +2,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { isUserLoadingToggle } from "./userSlice";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { options } from "@/helpers/helper";
 
 export const getUserDetail: any = createAsyncThunk(
     "user/profile-detail",
