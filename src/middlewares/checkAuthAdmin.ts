@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { verify } from 'jsonwebtoken';
 import CryptoJS from 'crypto-js';
 import mongoose from 'mongoose';
